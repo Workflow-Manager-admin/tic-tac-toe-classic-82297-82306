@@ -1,104 +1,263 @@
-/* CSS Variables for Theme Management */
+/* --- Minimal Tic Tac Toe Styles --- */
+/* Theme variables */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --main-bg: #fff;
+  --main-bg-secondary: #f8f9fa;
+  --ttt-primary: #2196F3;
+  --ttt-accent: #FF9800;
+  --ttt-border: #e0e2e6;
+  --ttt-x: #2196F3;
+  --ttt-o: #FF9800;
+  --ttt-title: #282c34;
+  --ttt-footer: #909399;
+  --ttt-shadow: 0 2px 16px 0 rgba(32,38,68,0.09);
+  --ttt-btn-bg: #2196F3;
+  --ttt-btn-txt: #fff;
 }
 
 [data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+  --main-bg: #18181c;
+  --main-bg-secondary: #21232b;
+  --ttt-primary: #64B6F7;
+  --ttt-accent: #FFB266;
+  --ttt-border: #343442;
+  --ttt-x: #64B6F7;
+  --ttt-o: #FFB266;
+  --ttt-title: #fff;
+  --ttt-footer: #868596;
+  --ttt-shadow: 0 2px 16px 0 rgba(0,0,0,0.12);
+  --ttt-btn-bg: #252a39;
+  --ttt-btn-txt: #fff;
 }
 
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+html, body {
+  height: 100%;
+  background: var(--main-bg);
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, 'Segoe UI', Roboto, Arial, sans-serif;
+  background: var(--main-bg);
+  color: var(--ttt-title);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
+/******** Layout ********/
+.App {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.ttt-header {
+  background: var(--main-bg-secondary);
+  padding: 24px 0 12px 0;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
   position: relative;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.ttt-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--ttt-title);
+  letter-spacing: 1.5px;
+  margin: 0;
+  align-self: center;
+  text-align: center;
 }
 
-.theme-toggle {
+.ttt-theme-toggle {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
+  right: 32px;
+  top: 24px;
+  background: var(--ttt-btn-bg);
+  color: var(--ttt-btn-txt);
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 8px 18px;
+  box-shadow: var(--ttt-shadow);
+  font-weight: 500;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: background 0.3s, color 0.3s, transform 0.15s;
 }
 
-.theme-toggle:hover {
+.ttt-theme-toggle:hover {
+  filter: brightness(1.06);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+  background: var(--ttt-accent);
+  color: #fff;
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+@media (max-width: 600px) {
+  .ttt-header {
+    padding-top: 14px;
+    padding-bottom: 6px;
+  }
+  .ttt-theme-toggle {
+    right: 14px;
+    top: 12px;
+    padding: 6px 14px;
+    font-size: 0.94rem;
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/******** Main content ********/
+.ttt-main {
+  flex: 1 0 auto;
+  max-width: 380px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 28px 8px 0 8px;
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+@media (max-width: 520px) {
+  .ttt-main { max-width: 98vw;}
+}
+
+/******** Status *******/
+.ttt-status {
+  margin-bottom: 24px;
+  font-size: 1.27rem;
+  font-weight: 500;
+  color: var(--ttt-primary);
+  min-height: 2.1em;
+  letter-spacing: 0.03em;
+  user-select: none;
+}
+
+.ttt-restart-btn {
+  margin-top: 24px;
+  background: var(--ttt-btn-bg);
+  color: var(--ttt-btn-txt);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  box-shadow: var(--ttt-shadow);
+  font-size: 1.08rem;
+  font-weight: 600;
+  letter-spacing: 1.1px;
+  cursor: pointer;
+  transition: background 0.21s;
+}
+
+.ttt-restart-btn:hover,
+.ttt-restart-btn:focus {
+  background: var(--ttt-accent);
+  color: #fff;
+}
+
+/******** Game Board *********/
+.ttt-board {
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--ttt-shadow);
+  border-radius: 22px;
+  background: var(--main-bg-secondary);
+}
+
+.ttt-row {
+  display: flex;
+}
+
+.ttt-square {
+  width: 86px;
+  height: 86px;
+  margin: 6px;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--ttt-primary);
+  background: var(--main-bg);
+  border: 2.2px solid var(--ttt-border);
+  border-radius: 13px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 1.5px 0.7px 0 rgba(32,38,68,0.09);
+  transition: border-color 0.15s, background 0.19s, box-shadow 0.17s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.ttt-square:hover:not(:disabled) {
+  border-color: var(--ttt-accent);
+}
+
+.ttt-square[aria-label*="X"] {
+  color: var(--ttt-x);
+}
+.ttt-square[aria-label*="O"] {
+  color: var(--ttt-o);
+}
+
+/* Highlight for winning line */
+.ttt-highlight {
+  background: linear-gradient(99deg, var(--ttt-primary) 60%, var(--ttt-accent) 120%);
+  color: #fff!important;
+  border-color: var(--ttt-accent);
+}
+
+.ttt-square:disabled {
+  background: var(--main-bg-secondary);
+  cursor: default;
+  opacity: 0.77;
+}
+
+@media (max-width: 556px) {
+  .ttt-square { width: 62px; height: 62px; font-size: 1.6rem; }
+  .ttt-board { border-radius: 13px; }
+}
+
+/******** Footer / Attribution *******/
+.ttt-footer {
+  padding: 15px 0 6px 0;
+  background: var(--main-bg-secondary);
+  text-align: center;
+  color: var(--ttt-footer);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.ttt-attribution {
+  color: var(--ttt-footer);
+}
+
+.ttt-footer-link {
+  color: var(--ttt-accent);
+  transition: color 0.2s;
+  text-decoration: none;
+  margin-left: 2px;
+}
+.ttt-footer-link:hover,
+.ttt-footer-link:focus {
+  color: var(--ttt-primary);
+  text-decoration: underline;
+}
+
+/* Accessibility: Hide visually for screen readers only */
+.sr-only {
+  border: 0!important;
+  clip: rect(0,0,0,0)!important;
+  height: 1px!important;
+  margin: -1px!important;
+  overflow: hidden!important;
+  padding: 0!important;
+  position: absolute!important;
+  width: 1px!important;
+}
+
+/* Small device tweaks */
+@media (max-width: 400px) {
+  .ttt-title { font-size: 1.35rem; }
+  .ttt-main { padding-top: 12px;}
 }
